@@ -33,12 +33,15 @@
                                     <segment title="Title"/>
                                 </segments>
                                 <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <connections>
+                                    <action selector="degmentchange:" destination="BYZ-38-t0r" eventType="valueChanged" id="OM8-ft-Ygj"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="115" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x1d-cG-xW6">
                                 <rect key="frame" x="16" y="108" width="288" height="364"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="115" id="y6t-kB-t4h" customClass="itemCell" customModule="Dream_Lister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="115" id="y6t-kB-t4h" customClass="itemCell" customModule="Dream_Lister" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="115"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y6t-kB-t4h" id="TO9-FK-ieb">
@@ -176,6 +179,9 @@
                                     <constraint firstAttribute="height" constant="100" id="s9y-ip-azt"/>
                                     <constraint firstAttribute="width" constant="100" id="zQ8-9o-OBu"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="imagetake:" destination="F1d-pW-vTN" eventType="touchUpInside" id="0Su-l0-YnM"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qHS-tO-bt1" customClass="CustomTextField" customModule="Dream_Lister" customModuleProvider="target">
                                 <rect key="frame" x="124" y="83" width="180" height="40"/>
@@ -223,6 +229,9 @@
                                 <state key="normal" title="Save Item">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveDatas:" destination="F1d-pW-vTN" eventType="touchUpInside" id="QLP-7H-6w9"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Eh-3t-K7K">
                                 <rect key="frame" x="113" y="274" width="94" height="21"/>
@@ -261,8 +270,18 @@
                     <navigationItem key="navigationItem" title="Add/Edit" id="vfo-Ay-fLW">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="cOo-Er-Ee9">
                             <color key="tintColor" red="1" green="0.2429370354" blue="0.13523344270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="deletedpressed:" destination="F1d-pW-vTN" id="spA-7E-3YG"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="Price" destination="0pd-hO-k1W" id="qeU-PI-a4f"/>
+                        <outlet property="details" destination="vt5-6k-Bt2" id="CmJ-mB-Phz"/>
+                        <outlet property="imagepick" destination="9vN-0B-CvJ" id="JoJ-8q-ULK"/>
+                        <outlet property="storePicker" destination="7YO-VS-18d" id="dJl-2o-iuN"/>
+                        <outlet property="titleIt" destination="qHS-tO-bt1" id="ZkY-8C-HrM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thn-U5-2RY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

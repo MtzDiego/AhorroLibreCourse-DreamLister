@@ -66,7 +66,6 @@
 			children = (
 				FA32A5AD1E5BB5BE008268C1 /* Controller */,
 				FA1011191E5B92F800BBB499 /* View */,
-				FA1011171E5B8A0600BBB499 /* Model */,
 				FA1010F21E5B83EB00BBB499 /* AppDelegate.swift */,
 				FA1010F61E5B83EB00BBB499 /* Main.storyboard */,
 				FA1010FC1E5B83EB00BBB499 /* Assets.xcassets */,
@@ -75,21 +74,6 @@
 				FA1010F91E5B83EB00BBB499 /* Dream_Lister.xcdatamodeld */,
 			);
 			path = "Dream Lister";
-			sourceTree = "<group>";
-		};
-		FA1011171E5B8A0600BBB499 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				FA1011181E5B8A0B00BBB499 /* Generated */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		FA1011181E5B8A0B00BBB499 /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Generated;
 			sourceTree = "<group>";
 		};
 		FA1011191E5B92F800BBB499 /* View */ = {
