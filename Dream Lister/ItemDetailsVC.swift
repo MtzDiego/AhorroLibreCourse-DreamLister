@@ -13,16 +13,21 @@ import  CoreData
 class ItemDetailsVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate{
 
 
+    @IBOutlet weak var typePickerView: UIPickerView!
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var imagepick: UIImageView!
     @IBOutlet weak var titleIt: CustomTextField!
     @IBOutlet weak var Price: CustomTextField!
     @IBOutlet weak var details: CustomTextField!
+    
+    
     var stores = [Store]()
+    var itemtype = [ItemType]()
     var itemtoedit: Item?
     var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
+        //keyboard neede to hidde
         super.viewDidLoad()
         titleIt.delegate = self
         Price.delegate = self
@@ -34,46 +39,41 @@ class ItemDetailsVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSour
         
         storePicker.delegate = self
         storePicker.dataSource = self
+        typePickerView.delegate = self
+        typePickerView.dataSource = self
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-//        let store = Store(context:context)
-//        store.name = "Best Buy"
-//        let store2 = Store(context:context)
-//        store2.name = "Tesla Dealership"
-//        let store3 = Store(context:context)
-//        store3.name = "Frys EA"
-//        let store4 = Store(context:context)
-//        store4.name = "Target"
-//        let store5 = Store(context:context)
-//        store5.name = "Amazon"
-//        let store6 = Store(context:context)
-//        store6.name = "K Mart"
-//        ad.saveContext()
-        
         getStores()
+        gettypes()
         if itemtoedit != nil{
             loadItemData()
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let store = stores[row]
-        return store.name
+        if pickerView == storePicker{
+            let store = stores[row]
+            return store.name
+        }else if pickerView == typePickerView{
+            let types = itemtype[row]
+            return types.type
+        }
+        return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return stores.count
+        if pickerView == storePicker{
+            return stores.count
+        }else if pickerView == typePickerView{
+            return itemtype.count
+        }
+        return 0
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //update when selected
-    }
-    
     func getStores(){
         let fetchRequest: NSFetchRequest<Store>=Store.fetchRequest()
         do{
@@ -82,9 +82,18 @@ class ItemDetailsVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSour
         }catch{
             //errors
         }
-            }
+    }
+    func gettypes(){
+        let fetchRequest: NSFetchRequest<ItemType>=ItemType.fetchRequest()
+        do{
+            self.itemtype = try context.fetch(fetchRequest)
+            self.typePickerView.reloadAllComponents()
+        }catch{
+            //errors
+        }
 
-    
+    }
+    //para ocultar keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
@@ -113,6 +122,7 @@ class ItemDetailsVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSour
         if let details = details.text{
             item.details = details
         }
+        item.toItemType = itemtype[typePickerView.selectedRow(inComponent: 0)]
         item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
         ad.saveContext()
         _ = navigationController?.popViewController(animated: true)
@@ -136,9 +146,22 @@ class ItemDetailsVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSour
                     index += 1
                 }while (index < stores.count)
             }
+            if let typei = item.toItemType{
+                var index = 0
+                repeat{
+                    let s = itemtype[index]
+                    if s.type == typei.type{
+                        typePickerView.selectRow(index, inComponent: 0, animated: false)
+                        break
+                    }
+                    index += 1
+                }while (index < itemtype.count)
+            }
+            
         }
     }
 
+    
     @IBAction func deletedpressed(_ sender: Any) {
         if itemtoedit != nil{
             context.delete(itemtoedit!)
@@ -146,9 +169,11 @@ class ItemDetailsVC: UIViewController, UITextFieldDelegate, UIPickerViewDataSour
         }
         _ = navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func imagetake(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             imagepick.image = image

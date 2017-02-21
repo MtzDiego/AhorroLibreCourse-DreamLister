@@ -144,21 +144,3 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     }
 }
 
-//@available(iOS 10.0, *)
-//func generateData(){
-//    let item = Item(context:context)
-//    item.title = "Mackbook Pro"
-//    item.price = 1800
-//    item.details="i can't wait until the september event, I hope they release new MPbs"
-//
-//    let item2 = Item(context:context)
-//    item2.title = "Bose Headphones"
-//    item2.price = 300
-//    item2.details="But man, its so nice to be able to block out everyone with the noise canceling tech"
-//    
-//    let item3 = Item(context:context)
-//    item3.title = "Tesla Model s"
-//    item3.price = 110000
-//    item3.details="oh man this is a beautiful car. one day i will own it"
-//    ad.saveContext()
-//}
